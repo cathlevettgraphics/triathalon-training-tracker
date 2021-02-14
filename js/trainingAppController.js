@@ -1,9 +1,9 @@
-import { existingWorkouts } from "./existingData.js";
-import { uuidv4 } from "./utilityFunctions.js";
-import * as userData from "./userData.js";
-import { TrainingSession } from "./createTrainingSession.js";
+import { existingWorkouts } from './existingData.js';
+import { uuidv4 } from './utilityFunctions.js';
+import * as userData from './userData.js';
+import { TrainingSession } from './createTrainingSession.js';
 
-export const listMountNode = document.querySelector(".target");
+export const listMountNode = document.querySelector('.target');
 
 /********************
  *
@@ -22,7 +22,7 @@ export class triTrainingTrackerApp {
     this.nodeMount = nodeMount;
 
     // Load from storage
-    let allWorkouts = JSON.parse(localStorage.getItem("allWorkouts"));
+    let allWorkouts = JSON.parse(localStorage.getItem('allWorkouts'));
     if (allWorkouts) {
       this.allWorkouts = allWorkouts;
     } else {
@@ -80,9 +80,9 @@ export class triTrainingTrackerApp {
     return this.allWorkouts.findIndex((workout) => workout._id === id);
   }
   workOutReport() {
-    const swims = this.allWorkouts.filter((item) => item.workout === "swim");
-    const runs = this.allWorkouts.filter((item) => item.workout === "run");
-    const cycles = this.allWorkouts.filter((item) => item.workout === "cycle");
+    const swims = this.allWorkouts.filter((item) => item.workout === 'swim');
+    const runs = this.allWorkouts.filter((item) => item.workout === 'run');
+    const cycles = this.allWorkouts.filter((item) => item.workout === 'cycle');
 
     function getTotalKm(data) {
       return data
@@ -108,9 +108,9 @@ export class triTrainingTrackerApp {
         .reduce((curr, acc) => curr + acc, 0);
     }
 
-    const runPace = getPace(pace, "run");
-    const swimPace = getPace(pace, "swim");
-    const cyclePace = getPace(pace, "cycle");
+    const runPace = getPace(pace, 'run');
+    const swimPace = getPace(pace, 'swim');
+    const cyclePace = getPace(pace, 'cycle');
 
     const workoutBreakdown = {
       numRuns: runs.length,
@@ -139,36 +139,36 @@ export class triTrainingTrackerApp {
     return pace;
   }
   removeAthlete() {
-    return this.allWorkouts.filter((name) => name.athlete !== "cath");
+    return this.allWorkouts.filter((name) => name.athlete !== 'cath');
   }
   save() {
-    localStorage.setItem("allWorkouts", JSON.stringify(this.allWorkouts));
+    localStorage.setItem('allWorkouts', JSON.stringify(this.allWorkouts));
   }
   getFromStorage() {
     JSON.parse(localStorage.getItem(this.allWorkouts));
   }
   renderWorkout() {
     // console.log('mount node ...', listMountNode);
-    const list = document.createElement("ul");
+    const list = document.createElement('ul');
 
     if (!this.allWorkouts.length) {
       listMountNode.innerHTML = `<p>No workouts logged so far – get training!</p>`;
     } else {
-      list.classList.add("workout-entry");
-      list.id = "workout-entry";
+      list.classList.add('workout-entry');
+      list.id = 'workout-entry';
 
       let addWorkout;
       const options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
       };
 
       for (const { date, workout, duration, distance, _id } of this
         .allWorkouts) {
-        addWorkout = document.createElement("li");
-        addWorkout.classList.add("workout-date");
+        addWorkout = document.createElement('li');
+        addWorkout.classList.add('workout-date');
 
         addWorkout.innerHTML = `
         <li class="workout-main-content">
@@ -182,11 +182,11 @@ export class triTrainingTrackerApp {
 
   <div class="workout-icon">
     <i class="fas fa-${
-      workout === "run"
-        ? "running running-workout"
-        : workout === "swim"
-        ? "swimmer swimmer-workout"
-        : "biking cycle-workout"
+      workout === 'run'
+        ? 'running running-workout'
+        : workout === 'swim'
+        ? 'swimmer swimmer-workout'
+        : 'biking cycle-workout'
     }"><span class="sr-only">Swim</span></i>
   </div>
 
@@ -220,7 +220,7 @@ export class triTrainingTrackerApp {
 `;
         list.append(addWorkout);
       }
-      listMountNode.innerHTML = "";
+      listMountNode.innerHTML = '';
       listMountNode.append(list);
     }
   }

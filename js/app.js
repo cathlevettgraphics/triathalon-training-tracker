@@ -1,6 +1,6 @@
-import { triTrainingTrackerApp } from "./trainingAppController.js";
-import { populate } from "./utilityFunctions.js";
-import { listMountNode } from "./trainingAppController.js";
+import { triTrainingTrackerApp } from './trainingAppController.js';
+import { populate } from './utilityFunctions.js';
+import { listMountNode } from './trainingAppController.js';
 
 /********************
  *
@@ -17,20 +17,20 @@ const trainingApp = new triTrainingTrackerApp();
  *********************/
 
 // select DOM nodes
-const raceDate = document.getElementById("race-date");
+const raceDate = document.getElementById('race-date');
 
-let daysUntilRace = document.querySelector(".days-until-race-number");
+let daysUntilRace = document.querySelector('.days-until-race-number');
 
-raceDate.addEventListener("input", (e) => {
+raceDate.addEventListener('input', (e) => {
   const dateOfRace = new Date(raceDate.value).toDateString();
   // Set to storage on input
-  localStorage.setItem("dateOfRace", dateOfRace);
+  localStorage.setItem('dateOfRace', dateOfRace);
 
   GrowlNotification.notify({
-    title: "Race day set!",
+    title: 'Race day set!',
     description: "You'd better get training :)",
-    type: "success",
-    position: "top-right",
+    type: 'success',
+    position: 'top-right',
     closeTimeout: 2500,
   });
 
@@ -40,27 +40,26 @@ raceDate.addEventListener("input", (e) => {
 // Set countdown
 function raceDayCountdown() {
   // Pull date from storage
-  const date = localStorage.getItem("dateOfRace");
+  const date = localStorage.getItem('dateOfRace');
   // Convert to date object
   const daysToTrain = trainingApp.setGoal({ raceDate: new Date(date) })
     .raceCountDown;
 
-  const headlineText = document.querySelector(".headline-text");
-  console.log(headlineText);
+  const headlineText = document.querySelector('.headline-text');
 
   if (date) {
     // Get from variable and assign to node
     headlineText.innerHTML = `
     <span class="days-until-race-number">
     ${+daysToTrain} ${
-      +daysToTrain === 1 ? "day" : "days"
+      +daysToTrain === 1 ? 'day' : 'days'
     } </span> until race day </h1>`;
   } else {
-    headlineText.textContent = "Select race date to set countdown";
+    headlineText.textContent = 'Select race date to set countdown';
   }
 
   // Get training log input so user cannot enter session after their race date
-  const trainingDate = document.getElementById("race-date-session");
+  const trainingDate = document.getElementById('race-date-session');
   trainingDate.max = raceDate.value;
 }
 raceDayCountdown();
@@ -91,7 +90,7 @@ function updateBoxes() {
  *
  *********************/
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   updateBoxes();
 });
 
@@ -102,56 +101,65 @@ document.addEventListener("DOMContentLoaded", () => {
  *********************/
 
 // Select DOM nodes
-const trainingForm = document.forms["training-entry-form"];
-const trainingFormUpdate = document.forms["training-entry-form-update"];
+const trainingForm = document.forms['training-entry-form'];
+const trainingFormUpdate = document.forms['training-entry-form-update'];
 
 // Swim Boxes
-const swimPace = document.querySelector(".text-pace-number.swim");
-const swimTotalKm = document.querySelector(".text-total-number.swim");
+const swimPace = document.querySelector('.text-pace-number.swim');
+const swimTotalKm = document.querySelector('.text-total-number.swim');
 const swimTotalDist = document.querySelector(
-  ".text-total-training-number.swim",
+  '.text-total-training-number.swim',
 );
 
 // Bike Boxes
-const bikePace = document.querySelector(".text-pace-number.bike");
-const bikeTotalKm = document.querySelector(".text-total-number.bike");
+const bikePace = document.querySelector('.text-pace-number.bike');
+const bikeTotalKm = document.querySelector('.text-total-number.bike');
 const bikeTotalDist = document.querySelector(
-  ".text-total-training-number.bike",
+  '.text-total-training-number.bike',
 );
 
 // Cycle Boxes
-const runPace = document.querySelector(".text-pace-number.run");
-const runTotalKm = document.querySelector(".text-total-number.run");
-const runTotalDist = document.querySelector(".text-total-training-number.run");
+const runPace = document.querySelector('.text-pace-number.run');
+const runTotalKm = document.querySelector('.text-total-number.run');
+const runTotalDist = document.querySelector('.text-total-training-number.run');
 
 // EventListener – Add a workout
-trainingForm.addEventListener("submit", (e) => {
+trainingForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const target = e.target;
-
-  // if (target && target.matches(".btn.submit-workout")) {
-  // console.log(target);
   const formData = new FormData(trainingForm);
   const data = Object.fromEntries(formData);
 
-  // Passing to the app
-  trainingApp.addWorkout(data);
-  // Render the workouts
-  trainingApp.renderWorkout();
+  if (data.distance !== '' && data.duration !== '') {
+    // Passing to the app
+    trainingApp.addWorkout(data);
+    // Render the workouts
+    trainingApp.renderWorkout();
 
-  // Populate header boxes with updated figs
-  updateBoxes();
-  trainingForm.reset();
+    // Populate header boxes with updated figs
+    updateBoxes();
+    trainingForm.reset();
 
-  GrowlNotification.notify({
-    title: "Nice one!",
-    description: "You've added a training session",
-    type: "success",
-    position: "top-right",
-    closeTimeout: 2500,
-  });
+    GrowlNotification.notify({
+      title: 'Nice one!',
+      description: "You've added a training session",
+      type: 'success',
+      position: 'top-right',
+      closeTimeout: 2500,
+    });
+  } else {
+    console.log('object');
+    GrowlNotification.notify({
+      title: 'Ooops!',
+      description: 'Please enter distance and duration',
+      type: 'warning',
+      position: 'top-right',
+      closeTimeout: 2500,
+    });
+  }
 });
+
 trainingApp.renderWorkout();
 
 /********************
@@ -163,14 +171,14 @@ trainingApp.renderWorkout();
 // const deleteBtn = document.querySelectorAll(".delete-workout");
 // console.log(deleteBtn);
 
-listMountNode.addEventListener("click", (e) => {
+listMountNode.addEventListener('click', (e) => {
   e.preventDefault();
   const target = e.target;
-  const deleteID = e.target.closest("button").dataset.id;
+  const deleteID = e.target.closest('button').dataset.id;
 
-  if (target && target.matches(".fas.fa-trash-alt")) {
+  if (target && target.matches('.fas.fa-trash-alt')) {
     // console.log(target);
-    target.closest("li").remove();
+    target.closest('li').remove();
     trainingApp.deleteWorkout(deleteID);
     // console.log(target.dataset.id);
     trainingApp.save();
@@ -178,32 +186,32 @@ listMountNode.addEventListener("click", (e) => {
 
     // Notification
     GrowlNotification.notify({
-      title: "Deleted",
-      description: "Training session removed",
-      type: "error",
-      position: "top-right",
+      title: 'Deleted',
+      description: 'Training session removed',
+      type: 'error',
+      position: 'top-right',
       closeTimeout: 2500,
     });
   }
 
-  if (target && target.matches(".fas.fa-user-edit")) {
+  if (target && target.matches('.fas.fa-user-edit')) {
     // Get workout data
-    const workoutID = e.target.closest("button").dataset.id;
+    const workoutID = e.target.closest('button').dataset.id;
     // console.log("id of workout is", workoutID);
     const workoutToUpdate = trainingApp.getById(workoutID);
     // console.log('workout to update', workoutToUpdate);
 
     // SHOW/HIDE
-    const enterContainer = document.querySelector(".main-container-enter");
-    const updateContainer = document.querySelector(".main-container-update");
-    enterContainer.classList.add("main-container-enter-hide");
-    updateContainer.classList.add("main-container-update-show");
+    const enterContainer = document.querySelector('.main-container-enter');
+    const updateContainer = document.querySelector('.main-container-update');
+    enterContainer.classList.add('main-container-enter-hide');
+    updateContainer.classList.add('main-container-update-show');
 
     GrowlNotification.notify({
-      title: "Editing workout",
-      description: "Make sure your stats are accurate",
-      type: "warning",
-      position: "top-right",
+      title: 'Editing workout',
+      description: 'Make sure your stats are accurate',
+      type: 'warning',
+      position: 'top-right',
       closeTimeout: 2500,
     });
     // Populate form update form
@@ -212,7 +220,7 @@ listMountNode.addEventListener("click", (e) => {
   }
 });
 
-trainingFormUpdate.addEventListener("submit", (e) => {
+trainingFormUpdate.addEventListener('submit', (e) => {
   e.preventDefault();
 
   // Serialise
@@ -225,7 +233,7 @@ trainingFormUpdate.addEventListener("submit", (e) => {
     'input[type="hidden"]',
   );
   for (const input of hiddenInputs) {
-    input.value = "";
+    input.value = '';
   }
 
   // Find changes
@@ -245,35 +253,8 @@ trainingFormUpdate.addEventListener("submit", (e) => {
 
   // console.log("changes", changes);
   // SHOW/HIDE
-  const enterContainer = document.querySelector(".main-container-enter");
-  const updateContainer = document.querySelector(".main-container-update");
-  enterContainer.classList.remove("main-container-enter-hide");
-  updateContainer.classList.remove("main-container-update-show");
+  const enterContainer = document.querySelector('.main-container-enter');
+  const updateContainer = document.querySelector('.main-container-update');
+  enterContainer.classList.remove('main-container-enter-hide');
+  updateContainer.classList.remove('main-container-update-show');
 });
-
-// console.log("all workouts", trainingApp.getAllWorkouts());
-
-/*
-// Loop over objects and find changes
-const original = {
-  name: "cath",
-  age: 40,
-};
-
-const newData = {
-  name: "cath",
-  age: 21,
-};
-
-function updateObj(original, changes) {
-  const newObj = {};
-  for (const [key, value] of Object.entries(original)) {
-    if (original[key] !== changes[key]) {
-      newObj[key] = newData[key];
-    }
-  }
-  return newObj;
-}
-
-console.log("the hanged elements are:", updateObj(original, newData));
-*/
