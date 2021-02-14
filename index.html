@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Normalise -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
+    integrity="sha512-ISS7cAi1PEhQ8jnbJpJZMd29NlhNj4AWYyLOSp2CE/CsHxTCu+r+t0D2yoJudVrd0/8fTVPUVDzY5Tvli75u/g=="
+    crossorigin="anonymous" />
+  <!-- Materialise toasts -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+  <!-- Growl -->
+  <link rel="stylesheet" href="https://www.cssscript.com/demo/beautiful-growl-notification/colored-theme.min.css">
+  <!-- Generics -->
+  <link rel="stylesheet" href="./styles/generic.css">
+  <!-- Font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <!-- fonts -->
+  <link rel="stylesheet" href="./fonts/fonts.css">
+  <link rel="stylesheet" type="text" href="dist/light-theme.min.css">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./styles/style.css">
+  <title>Triathalon training tracker</title>
+  <script type="module" src="./js/app.js"></script>
+</head>
+
+<body>
+
+  <nav>
+    <div class="main-nav">
+      <div class="main-logo">
+        <p class="main-text"><a href="#" class="logo-nav">triathalon training app</a></p>
+      </div>
+    </div>
+  </nav>
+
+  <header>
+    <div class="main-wrapper">
+      <div class="header-container">
+
+        <div class="set-tracker-date">
+          <p class="select-race-date"><span class="text-track">Track your training</span><br> When is your race?</p>
+          <div class="date-picker">
+            <label for="start">Set your race date</label>
+            <input type="date" class="race-date" name="race-date" id="race-date" value="" min="2018-01-01"
+              max="2022-12-31">
+          </div>
+        </div>
+
+        <div class="training-containers">
+          <!-- Swims box -->
+          <div class="training-container swim">
+            <div class="training-type-name">
+              <i class="fas fa-swimmer"><span class="sr-only">Swim</span></i>
+              <h3>swim</h3>
+            </div>
+
+            <div class="training-text__pace">
+              <p class="text-pace-number swim">00</p>
+              <p class="text-pace-description">Average pace per 100m</p>
+            </div>
+
+            <div class="total-training">
+              <div class="training-text__total-km">
+                <p class="text-total-number swim">00</p>
+                <p class="text-total-description">Total km</p>
+              </div>
+            </div>
+
+            <div class="vertical-rule"></div>
+
+            <div class="training-text__total-training-sessions">
+              <p class="text-total-training-number swim">00</p>
+              <p class="text-total-training-description">Total swims</p>
+            </div>
+          </div>
+
+          <!-- Bike box -->
+          <div class="training-container bike">
+            <div class="training-type-name">
+              <i class="fas fa-biking"><span class="sr-only">bike</span></i>
+              <h3>Bike</h3>
+            </div>
+
+            <div class="training-text__pace">
+              <p class="text-pace-number bike">00</p>
+              <p class="text-pace-description">Average pace per 100m</p>
+            </div>
+
+            <div class="total-training">
+              <div class="training-text__total-km">
+                <p class="text-total-number bike">00</p>
+                <p class="text-total-description">Total km</p>
+              </div>
+            </div>
+
+            <div class="vertical-rule"></div>
+
+            <div class="training-text__total-training-sessions">
+              <p class="text-total-training-number bike">00</p>
+              <p class="text-total-training-description">Total swims</p>
+            </div>
+          </div>
+
+          <!-- Run box -->
+          <div class="training-container run">
+            <div class="training-type-name">
+              <i class="fas fa-running"><span class="sr-only">Run</span></i>
+              <h3>run</h3>
+            </div>
+
+            <div class="training-text__pace">
+              <p class="text-pace-number run">00</p>
+              <p class="text-pace-description">Average pace per km</p>
+            </div>
+
+            <div class="total-training">
+              <div class="training-text__total-km">
+                <p class="text-total-number run">00</p>
+                <p class="text-total-description">Total km</p>
+              </div>
+            </div>
+
+            <div class="vertical-rule"></div>
+
+            <div class="training-text__total-training-sessions">
+              <p class="text-total-training-number run">00</p>
+              <p class="text-total-training-description">Total runs</p>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Headline box -->
+        <div class="headline-content">
+          <h1 class="headline-text"><span class="days-until-race-number"></span></h1>
+          <blockquote class="headline-strapline">The more difficult the victory, the greater the happiness in winning
+          </blockquote>
+          <cite>–Pele</cite>
+        </div>
+      </div>
+    </div>
+
+  </header>
+
+  <main>
+    <div class="main-container-enter">
+      <div class="main-container">
+        <h3>Enter a training session</h3>
+        <form name="training-entry-form" class="training-entry-form">
+
+          <!-- type -->
+          <!-- <div class="form-workout">
+          <label for="Workout">Workout</label>
+          <input type="text" id="workout" name="workout" placeholder="Workout">
+        </div> -->
+
+          <div class="form-workout">
+            <label cla for="Workout">Workout</label>
+            <select name="workout" id="workout">
+              <option value="run">run</option>
+              <option value="cycle">cycle</option>
+              <option value="swim">swim</option>
+            </select>
+          </div>
+
+          <!-- distance -->
+          <div class="form-distance">
+            <label for="distance">Distance, meters</label>
+            <input type="number" id="distance" name="distance" placeholder="Distance">
+          </div>
+
+          <!-- duration -->
+          <div class="form-duration">
+            <label for="duration">Duration (1.5 = 90min)</label>
+            <input type="text" id="duration" name="duration" placeholder="Duration">
+          </div>
+
+          <!-- date -->
+          <div class="form-date">
+            <label for="start">Date</label>
+            <input type="date" name="date" id="race-date-session" value="2020-12-01" min="2018-01-01" max="2022-12-31">
+          </div>
+
+          <!-- Submit -->
+          <div class="form-submit">
+            <button class="btn submit-workout" type="submit">Enter</button>
+          </div>
+      </div>
+    </div>
+
+    <!-- <div class="target"></div> -->
+    </form>
+
+    <div class="main-container-update">
+      <div class="main-container" id="main-container-update">
+        <h3>Update a training session</h3>
+        <form name="training-entry-form-update" class="training-entry-form-update">
+          <input type="hidden" name="_id">
+
+          <!-- type -->
+          <!-- <div class="form-workout">
+              <label for="Workout">Workout</label>
+              <input type="text" id="workout" name="workout" placeholder="Workout">
+            </div> -->
+
+          <div class="form-workout">
+            <label for="Workout">Workout</label>
+            <select name="workout" id="workout">
+              <option value="run">run</option>
+              <option value="cycle">cycle</option>
+              <option value="swim">swim</option>
+            </select>
+          </div>
+
+          <!-- distance -->
+          <div class="form-distance">
+            <label for="distance">Distance, meters</label>
+            <input type="number" id="distance" name="distance" placeholder="Distance">
+          </div>
+
+          <!-- duration -->
+          <div class="form-duration">
+            <label for="duration">Duration (1.5 = 90min)</label>
+            <input type="text" id="duration" name="duration" placeholder="Duration">
+          </div>
+
+          <!-- date -->
+          <div class="form-date">
+            <label for="start">Date</label>
+            <input type="date" name="date" id="race-date-session" value="2020-12-01" min="2018-01-01" max="2022-12-31">
+          </div>
+
+          <!-- Submit -->
+          <div class="form-submit">
+            <button class="btn submit-update" type="submit">Update</button>
+          </div>
+      </div>
+    </div>
+
+    <!-- <div class="target"></div> -->
+    </form>
+    </div>
+    </div>
+
+    <div class="target"></div>
+  </main>
+
+  <footer>
+    <nav>
+      <div class="footer-nav">
+        <div class="main-logo">
+          <p class="main-text"><a href="#" class="logo-nav">triathalon training app</a></p>
+          <p class="main-logo-sub-text"><small class="main-logo-sub-text">&copy; 2020 <a
+                href="https://cathlevett-graphics.netlify.app/" class="site-link logo-nav">
+                cathlevettgraphics</a></small></p>
+        </div>
+      </div>
+    </nav>
+  </footer>
+
+  <!-- Growl -->
+  <script src="https://www.cssscript.com/demo/beautiful-growl-notification/growl-notification.min.js"></script>
+</body>
+
+</html>
